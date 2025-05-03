@@ -1,0 +1,31 @@
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - my-network
+    stdin_open: true
+    tty: true
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - DEBUG=1
+    networks:
+      - my-network
+    command: sh -c "if [ ! -f manage.py ]; then django-admin startproject backend . && python manage.py startapp api; fi && python manage.py runserver 0.0.0.0:8000"
+
+networks:
+  my-network:
+    driver: bridge
+
