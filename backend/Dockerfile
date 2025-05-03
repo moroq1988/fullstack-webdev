@@ -14,6 +14,10 @@ ENV PATH="/opt/venv/bin:$PATH"
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
+# wait-for-it.sh をコピー
+COPY wait-for-it.sh ./
+RUN chmod +x wait-for-it.sh
+
 # アプリケーションのコードをコピー
 COPY . .
 

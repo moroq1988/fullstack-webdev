@@ -21,11 +21,45 @@ services:
       - ./backend:/app
     environment:
       - DEBUG=1
+      - DB_HOST=db
+      - DB_NAME=dev_db
+      - DB_USER=devuser
+      - DB_PASSWORD=devpass
+      - DJANGO_SETTINGS_MODULE=config.settings.development
+      - PYTHONPATH=/app
+    depends_on:
+      - db
     networks:
       - my-network
-    command: sh -c "if [ ! -f manage.py ]; then django-admin startproject backend . && python manage.py startapp api; fi && python manage.py runserver 0.0.0.0:8000"
+    command:
+      [
+        "./wait-for-it.sh",
+        "db:3306",
+        "--",
+        "python",
+        "manage.py",
+        "runserver",
+        "0.0.0.0:8000",
+      ]
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: dev_db
+      MYSQL_USER: devuser
+      MYSQL_PASSWORD: devpass
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - my-network
+
+volumes:
+  mysql-data:
 
 networks:
   my-network:
     driver: bridge
-
