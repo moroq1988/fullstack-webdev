@@ -4,7 +4,13 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Yarnをインストール
-RUN corepack enable
+RUN corepack enable && corepack prepare yarn@4.7.0 --activate
+
+ENV YARN_NODE_LINKER=node-modules
+
+COPY . .
+
+RUN yarn install
 
 # 開発モードでNext.jsアプリを実行するためのコマンド
-CMD ["sh", "-c", "if [ -f package.json ]; then yarn dev; else yarn create next-app . --typescript --eslint --no-tailwind --app --src-dir --import-alias '@/*' && yarn dev; fi"]
+CMD ["yarn", "dev"]
