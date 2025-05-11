@@ -1,8 +1,0 @@
-{
-  "python.formatting.provider": "black",
-  "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.organizeImports": "explicit"
-  },
-  "python.defaultInterpreterPath": "/Users/ryosuke/miniconda3/envs/fullstack-backend/bin/python"
-}

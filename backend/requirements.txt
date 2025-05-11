@@ -2,3 +2,9 @@ django
 djangorestframework
 django-cors-headers
 mysqlclient
+
+# 開発補助ツール（開発環境・CIで使用）
+black
+isort
+flake8
+mypy
