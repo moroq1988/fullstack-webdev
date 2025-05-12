@@ -1,0 +1,25 @@
+repos:
+  - repo: https://github.com/pre-commit/mirrors-isort
+    rev: v5.10.1
+    hooks:
+      - id: isort
+
+  - repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+      - id: black
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.2.0
+    hooks:
+      - id: flake8
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.15.0
+    hooks:
+      - id: mypy
+        args:
+          - "--config-file=mypy.ini"
+          - "--exclude" # migrations配下を型チェック除外（Django自動生成）
+          - "migrations/"
+          - "--disable-error-code=var-annotated" # 自動生成で出る型注釈エラーを無視

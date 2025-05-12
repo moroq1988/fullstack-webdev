@@ -8,7 +8,7 @@ export default function Page() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_BASE}/hello/backend/`)
+      .get(`${process.env.NEXT_PUBLIC_API_BASE}/hello_db/backend/`)
       .then((res) => res.data)
       .then((data) => {
         setData(data);
