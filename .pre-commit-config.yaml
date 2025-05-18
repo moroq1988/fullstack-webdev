@@ -20,6 +20,4 @@ repos:
       - id: mypy
         args:
           - "--config-file=mypy.ini"
-          - "--exclude" # migrations配下を型チェック除外（Django自動生成）
-          - "migrations/"
           - "--disable-error-code=var-annotated" # 自動生成で出る型注釈エラーを無視
